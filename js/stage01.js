@@ -73,11 +73,16 @@ cells.forEach(cell => {
 });
 
 function updateTop3GraphStage1() {
-      const records = JSON.parse(localStorage.getItem("stage1_records")) || [];
-      document.getElementById("firstTime").textContent = records[0]?.toFixed(2) + "s" || "-";
-      document.getElementById("secondTime").textContent = records[1]?.toFixed(2) + "s" || "-";
-      document.getElementById("thirdTime").textContent = records[2]?.toFixed(2) + "s" || "-";
-    }
+  const records = JSON.parse(localStorage.getItem("stage1_records")) || [];
+  
+  document.getElementById("firstTime").textContent = 
+    (typeof records[0] === "number" ? records[0].toFixed(2) + "s" : "-");
+  document.getElementById("secondTime").textContent = 
+    (typeof records[1] === "number" ? records[1].toFixed(2) + "s" : "-");
+  document.getElementById("thirdTime").textContent = 
+    (typeof records[2] === "number" ? records[2].toFixed(2) + "s" : "-");
+}
+
 
     function saveRecordStage1(time) {
       const record = parseFloat(time);
