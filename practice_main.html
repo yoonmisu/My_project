@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>practice /main</title>
+  <link rel="icon" href="img/favicon.png" type="image/png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff;
+      color: #333;
+    }
+
+    header {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px 150px;
+      gap: 20px;
+    }
+
+    .logo img {
+      width: 200px;
+      height: 65px;
+    }
+
+    .search {
+      position: relative;
+      width: 300px;
+    }
+    .search input {
+      width: 100%;
+      padding: 10px 40px 10px 16px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      font-size: 16px;
+    }
+    .search button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #666;
+    }
+    .search input:focus {
+      outline: none;
+      border-color: #ff6f61;
+      box-shadow: 0 0 0 2px rgba(255, 111, 97, 0.3);
+    }
+    nav.menu {
+      display: flex;
+      justify-content: center;
+      gap: 130px;
+      padding: 12px 0;
+      border-top: 1px solid #ddd;
+    }
+    nav.menu a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    nav.menu a:hover {
+      color: #ff6f61;
+    }
+
+    main {
+      display: flex;
+      justify-content: space-between;
+      padding: 40px 80px;
+      gap: 40px;
+    }
+
+    .left {
+      flex: 0.4;
+    }
+
+    .card-container {
+      display: flex;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .card-row {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .card {
+      display: flex;
+      width: 280px;
+      height: 120px;
+      background-color: #fff;
+      border: 2px solid #eee;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(255, 192, 203, 0.2);
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 0 12px rgba(255, 153, 153, 0.4);
+    }
+
+    .card img {
+      width: 100px;
+      height: 100%;
+      object-fit: cover;
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .card-content .title {
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .card-content .place,
+    .card-content .date {
+      color: #666;
+      font-size: 11px;
+    }
+
+    .home-btn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #cdcdcd;
+      color: #333;
+      border: none;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .home-btn:hover {
+      background-color: #ffb6b6;
+      box-shadow: 0 0 8px #ffc1c1;
+    }
+
+    .right {
+      flex: 1.2;
+      border: 1px solid #eee;
+      border-radius: 15px;
+      padding: 30px;
+    }
+
+    .poster {
+      float: left;
+      width: 220px;
+      height: 310px;
+      margin-right: 30px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .info {
+      overflow: hidden;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #ffb6c1;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .details p {
+      font-size: 14px;
+      margin: 3px 0;
+    }
+
+    .section { 
+      clear: both;
+      margin-top: 30px;
+    }
+
+    .section h4 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .date-option {
+      display: inline-block;
+      background-color: #ffe6e6;
+      border-radius: 12px;
+      padding: 10px 16px;
+      margin-right: 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .date-option:hover {
+      background-color: #ffc1c1;
+    }
+
+    .time-option {
+      display: inline-block;
+      border: 2px solid #ffb6c1;
+      color: #ff6b81;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 10px 16px;
+      background: transparent;
+      margin-top: 10px;
+    }
+
+    .btn-area {
+      margin-top: 30px;
+      text-align: right;
+    }
+
+    .reserve-btn {
+      background-color: #ffb6c1;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .reserve-btn:hover {
+      background-color: #ff6b81;
+    }
+  </style>
+
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="logo"><img src="img/header.png" alt="QuickPick" /></div>
+      <div class="search">
+        <input type="text" placeholder="Search..." />
+        <button>🔍</button>
+      </div>
+    </div>
+    <nav class="menu">
+      <a href="stage01.html" id="menu-reserve">포도알 잡기 게임</a>
+      <a href="#" style="font-weight: bold; color: #ff6f61;">예매 연습 페이지</a>
+      <a href="#">|</a>
+      <a href="introduce.html"><em>"QuickPick" 사이트 소개</em></a>
+    </nav>
+  </header>
+  <main>
+    <div class="left">
+      <h3>🎵 CONCERT List</h3>
+      <div class="card-container">
+        <div class="card-row">
+          <div class="card" onclick="showDetails('fromis_9')">
+            <img src="https://images.khan.co.kr/article/2025/07/09/news-p.v1.20250709.a6cfa23a613a4d3d9b818f1532590879_P1.jpg" alt="fromis_9 CONCERT">
+            <div class="card-content">
+              <div class="title">fromis_9 WORLD TOUR<br>[NOW TOMORROW.]</div>
+              <div class="place">장충체육관</div>
+              <div class="date">2025.08.09 ~ 08.10</div>
+            </div>
+          </div>
+
+          <div class="card" onclick="showDetails('CRAVITY')">
+            <img src="https://pbs.twimg.com/media/Gs-guKAacAAAFw9.jpg:large" alt="CRAVITY CONCERT">
+            <div class="card-content">
+              <div class="title">CRAVITY CONCERT<br>[Dare to Crave]</div>
+              <div class="place">올림픽공원 핸드볼경기장</div>
+              <div class="date">2025.07.12 ~ 07.13</div>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="location.href='home.html'" class="home-btn">⌂ HOME</button>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="poster">
+        <img id="poster-img" src=" " alt="포스터" />
+      </div>
+      <div class="info">
+        <div class="badge">단독판매</div>
+        <div class="title" id="show-title"></div>
+        <div class="details" id="show-details"></div>
+      </div>
+      <div class="section">
+        <h4>날짜 선택</h4>
+        <div id="date-options"></div>
+      </div>
+      <div class="section">
+        <h4>시간 선택</h4>
+        <div class="times" id="timeDisplay">날짜를 선택해주세요...</div>
+      </div>
+      <div class="btn-area">
+        <button class="reserve-btn">예매하기</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const showData = {
+      "fromis_9": {
+        poster: "https://images.khan.co.kr/article/2025/07/09/news-p.v1.20250709.a6cfa23a613a4d3d9b818f1532590879_P1.jpg",
+        title: "2025 fromis_9 WORLD TOUR [NOW TOMORROW.] IN SEOUL",
+        period: "2025.08.09 ~ 2025.08.10",
+        place: "장충체육관",
+        age: "9세 이상",
+        genre: "콘서트",
+        dateOptions: [
+          "2025년 08월 09일 (토)",
+          "2025년 08월 10일 (일)",
+        ],
+        timeOptions: {
+          "2025년 08월 09일 (토)": "18시 00분",
+          "2025년 08월 10일 (일)": "17시 00분",
+        }
+      },
+      "CRAVITY": {
+        poster: "https://pbs.twimg.com/media/Gs-guKAacAAAFw9.jpg:large",
+        title: "2025 CRAVITY CONCERT [Dare to Crave]",
+        period: "2025.07.12 ~ 2025.07.13",
+        place: "올림픽공원 핸드볼경기장",
+        age: "7세 이상",
+        genre: "콘서트",
+        dateOptions: [
+          "2025년 07월 12일 (토)",
+          "2025년 07월 13일 (일)"
+        ],
+        timeOptions: {
+          "2025년 07월 12일 (토)": "18시 00분",
+          "2025년 07월 13일 (일)": "17시 00분"
+        }
+      }
+    };
+
+    let selectedShowKey = 'CRAVITY';
+
+    function showDetails(key) {
+      selectedShowKey = key;
+      const data = showData[key];
+
+      document.getElementById('poster-img').src = data.poster;
+      document.getElementById('show-title').innerText = data.title;
+      document.getElementById('show-details').innerHTML = `
+        <p><strong>공연기간:</strong> ${data.period}</p>
+        <p><strong>공연장:</strong> ${data.place}</p>
+        <p><strong>관람등급:</strong> ${data.age}</p>
+        <p><strong>장르:</strong> ${data.genre}</p>
+      `;
+
+      const dateOptions = document.getElementById('date-options');
+      dateOptions.innerHTML = "";
+      data.dateOptions.forEach(date => {
+        const div = document.createElement('div');
+        div.className = 'date-option';
+        div.innerText = date;
+        div.onclick = () => selectDate(date);
+        dateOptions.appendChild(div);
+      });
+
+      document.getElementById('timeDisplay').innerText = '날짜를 선택해주세요...';
+    }
+
+    function selectDate(date) {
+      const timeDisplay = document.getElementById('timeDisplay');
+      const timeData = showData[selectedShowKey].timeOptions;
+      const time = timeData[date] || (Array.isArray(timeData) ? timeData[0] : '시간 정보 없음');
+
+      timeDisplay.innerHTML = `<div class="time-option">${time}</div>`;
+    }
+
+    function goToSeatPage() {
+      document.querySelector('.reserve-btn').addEventListener('click', () => {
+        const selectedDate = document.querySelector('.date-option.selected')?.innerText;
+        const selectedTime = document.querySelector('.time-option')?.innerText;
+      
+        if (!selectedDate || !selectedTime) {
+          alert('날짜와 시간을 선택해주세요.');
+          return;
+        }
+        window.location.href = `fromis_9(1).html?date=${encodeURIComponent(selectedDate)}&time=${encodeURIComponent(selectedTime)}`;
+      });
+      
+      const title = encodeURIComponent(showData[selectedShowKey].title);
+      const date = encodeURIComponent(selectedDate);
+      const time = encodeURIComponent(selectedTime);
+    
+      let targetPage = '';
+      if (selectedShowKey === 'fromis_9') {
+        targetPage = 'fromis_9(1).html';
+      } else if (selectedShowKey === 'CRAVITY') {
+        targetPage = 'cravity(1).html';
+      }
+    
+      window.location.href = `${targetPage}?title=${title}&date=${date}&time=${time}`;
+    };
+
+    function selectDate(date) {
+      const options = document.querySelectorAll('.date-option');
+      options.forEach(opt => opt.classList.remove('selected'));
+  
+      const selected = Array.from(options).find(opt => opt.innerText === date);
+      if (selected) selected.classList.add('selected');
+  
+      const timeDisplay = document.getElementById('timeDisplay');
+      const time = showData[selectedShowKey].timeOptions[date] || '시간 정보 없음';
+  
+      timeDisplay.innerHTML = `<div class="time-option">${time}</div>`;
+    }
+
+    window.onload = () => {
+      showDetails('fromis_9');
+    };
+
+    document.querySelector('.reserve-btn').addEventListener('click', () => {
+      if (selectedShowKey === 'fromis_9') {
+        window.location.href = 'fromis_9(1).html';
+      } else if (selectedShowKey === 'CRAVITY') {
+        window.location.href = 'cravity(1).html';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>cravity /pay</title>
+  <link rel="icon" href="img/favicon.png" type="image/png" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      border: 1px solid #eee;
+      display: flex;
+      gap: 40px;
+    }
+
+    .left, .right {
+      flex: 1;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .payment-methods input {
+      margin-right: 6px;
+    }
+
+    .card-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #999;
+      margin-top: 5px;
+    }
+
+    .summary {
+      border: 1px solid #ffd3dc;
+      background-color: #fff0f3;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .summary h3 {
+      margin-bottom: 15px;
+      color: #ff6f91;
+    }
+
+    .summary p {
+      font-size: 14px;
+      margin: 6px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .total {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff6b81;
+      border-top: 1px dashed #ccc;
+      padding-top: 10px;
+      margin-top: 15px;
+    }
+
+    .btn-area {
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .pay-btn {
+      background-color: #ffb6c1;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .pay-btn:hover {
+      background-color: #ff6b81;
+    }
+
+    .radio-wrap {
+      margin-bottom: 15px;
+    }
+
+    .half {
+      display: flex;
+      gap: 10px;
+    }
+
+    .half input {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <h2>🎟️ 수령 방법</h2>
+      <div class="radio-wrap">
+        <input type="radio" name="receive" checked> 배송 (2,500원)
+      </div>
+
+      <h2>👩‍💻 주문자 정보</h2>
+      <label>이름</label>
+      <input type="text" placeholder="이름 입력">
+      <label>연락처</label>
+      <input type="text" placeholder="휴대폰 번호">
+      <label>이메일</label>
+      <input type="text" placeholder="이메일 주소">
+
+      <h2>📦 배송지 정보</h2>
+      <label>수령인</label>
+      <input type="text" placeholder="수령인 이름">
+      <label>배송 주소</label>
+      <div class="half">
+        <input type="text" placeholder="우편번호">
+        <input type="text" placeholder="주소 검색">
+      </div>
+      <input type="text" placeholder="상세 주소">
+    </div>
+
+    <div class="right">
+      <h2>💳 결제수단</h2>
+      <div class="payment-methods">
+        <label><input type="radio" name="pay" checked> 신용카드</label>
+        <label><input type="radio" name="pay"> 무통장입금</label>
+        <label><input type="radio" name="pay"> 휴대폰결제</label>
+        <label><input type="radio" name="pay"> 카카오페이</label>
+      </div>
+
+      <div class="card-options">
+        <select>
+          <option>카드 종류를 선택하세요</option>
+          <option>신한카드</option>
+          <option>국민카드</option>
+        </select>
+        <select>
+          <option>할부 개월을 선택하세요</option>
+          <option>일시불</option>
+          <option>3개월</option>
+          <option>6개월</option>
+        </select>
+      </div>
+
+      <div class="summary">
+        <h3>✔️ 결제 정보</h3>
+        <p><span>공연</span> <span>2025 CRAVITY CONCERT [Dare to Crave]</span></p>
+        <p><span>날짜</span> <span>2025년 07월 12일 (토)</span></p>
+        <p><span>시간</span> <span>18시 00분</span></p>
+        <p><span>좌석</span> <span id="selectedSeat"></span></p>
+        <p><span>티켓 금액</span> <span id="ticketPrice"></span></p>
+        <p><span>배송비</span> <span>2,500원</span></p>
+        <p class="total"><span>총 결제금액</span> <span id="totalAmount"></span></p>
+      </div>
+
+      <div class="btn-area">
+        <button class="pay-btn" onclick="location.href='cravity(3).html'">결제하기</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const seat = localStorage.getItem("selectedSeat") || "선택 없음";
+    const price = parseInt(localStorage.getItem("selectedPrice") || "0", 10);
+    const total = price + 2500;
+
+    document.getElementById("selectedSeat").innerText = seat;
+    document.getElementById("ticketPrice").innerText = price.toLocaleString() + "원";
+    document.getElementById("totalAmount").innerText = total.toLocaleString() + "원";
+
+  </script>
+</body>
+</html>

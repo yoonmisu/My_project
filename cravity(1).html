@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>cravity /select</title>
+  <link rel="icon" href="img/favicon.png" type="image/png" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fffaf9;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      padding: 20px 40px;
+      border-bottom: 1px solid #ddd;
+    }
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    header p {
+      font-size: 14px;
+      color: #666;
+    }
+    .main {
+      display: flex;
+      flex: 1;
+    }
+    .seating-area {
+      flex: 2;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .stage {
+      width: 200px;
+      height: 60px;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      line-height: 60px;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    .seat-grid {
+      display: grid;
+      grid-template-columns: repeat(11, 40px);
+      grid-template-rows: repeat(7, 40px);
+      gap: 8px;
+    }
+    .seat {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 40px;
+      font-size: 12px;
+      font-weight: bold;
+      transition: background-color 0.2s ease;
+    }
+
+    .vip {
+      background-color: #f5deb3;
+    }
+    .vip.selected {
+      background-color: #d2b48c;
+    }
+
+    .normal {
+      background-color: #a4d2ff;
+    }
+    .normal.selected {
+      background-color: #8fb4ff;
+    }
+
+    .unavailable {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .seat:hover:not(.unavailable):not(.selected) {
+      opacity: 0.7;
+    }
+
+    .info-panel {
+      flex: 1;
+      border-left: 1px solid #eee;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .seat-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .seat-type {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .seat-type .box {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+    .seat-type span {
+      flex: 1;
+    }
+    .vip-box {
+      background-color: #f5deb3;
+    }
+    .normal-box {
+      background-color: #a4d2ff;
+    }
+    .seat-type .count {
+      color: coral;
+      font-weight: bold;
+    }
+
+    .selected-info {
+      margin-top: 30px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .confirm-btn {
+      align-self: flex-end;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #ffb6c1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .confirm-btn:hover {
+      background-color: #ff6b81;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>2025 CRAVITY CONCERT [Dare to Crave]</h1>
+    </header>
+    <div class="main">
+      <div class="seating-area">
+        <div class="stage">무대</div>
+        <div class="seat-grid" id="seatGrid"></div>
+      </div>
+      <div class="info-panel">
+        <div>
+          <div class="seat-info">
+            <div class="seat-type">
+              <div class="box vip-box"></div>
+              <span>VIP 좌석</span>
+              <span class="count" id="vipCount"></span>
+            </div>
+            <div class="seat-type">
+              <div class="box normal-box"></div>
+              <span>일반 좌석</span>
+              <span class="count" id="normalCount"></span>
+            </div>
+          </div>
+          <div class="selected-info" id="selectedSeatInfo">
+            선택된 좌석: -<br />
+            가격: -
+          </div>
+        </div>
+        <button class="confirm-btn" onclick="completeSelection()">좌석 선택 완료</button>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const seatGrid = document.getElementById('seatGrid');
+    const selectedSeatInfo = document.getElementById('selectedSeatInfo');
+    let selectedSeat = null;
+    let selectedType = '';
+    const vipPrice = 154000;
+    const normalPrice = 138000;
+
+    let vipCount = 0, normalCount = 0;
+
+    function createSeat(row, col) {
+      const div = document.createElement('div');
+      const area = String.fromCharCode(65 + row);
+      const seatId = `${area}${col + 1}`;
+
+      div.classList.add('seat');
+
+      const isVIP = row < 4;
+      if (isVIP) {
+        div.classList.add('vip');
+        vipCount++;
+      } else {
+        div.classList.add('normal');
+        normalCount++;
+      }
+
+      if (Math.random() < 0.2) {
+        div.classList.add('unavailable');
+        div.onclick = () => alert("이미 선택된 좌석입니다.");
+        if (isVIP) vipCount--; else normalCount--;
+      } else {
+        div.onclick = () => {
+            const isVIP = div.classList.contains("vip");
+            const seatName = seatId;
+            const seatPrice = isVIP ? 154000 : 138000;
+          
+            document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove('selected'));
+            div.classList.add('selected');
+ 
+            selectedSeatInfo.innerHTML = `
+              선택된 좌석: ${seatName}<br />
+              가격: ${seatPrice.toLocaleString()}원
+            `;
+          
+            localStorage.setItem("selectedSeat", seatName);
+            localStorage.setItem("selectedPrice", seatPrice);
+          };
+      }
+
+      div.innerText = seatId;
+      seatGrid.appendChild(div);
+    }
+
+    for (let row = 0; row < 7; row++) {
+      for (let col = 0; col < 11; col++) {
+        createSeat(row, col);
+      }
+    }
+
+    document.getElementById('vipCount').innerText = `잔여석 ${vipCount}석`;
+    document.getElementById('normalCount').innerText = `잔여석 ${normalCount}석`;
+
+
+    function completeSelection() {
+        const seat = localStorage.getItem("selectedSeat");
+        const price = localStorage.getItem("selectedPrice");
+      
+        if (!seat || !price) {
+          alert("좌석을 선택해주세요!");
+          return;
+        }
+      
+        window.location.href = "cravity(2).html";
+      }
+      
+  </script>
+</body>
+</html>

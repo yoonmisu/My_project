@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>QuickPick /main</title>
+  <link rel="icon" href="img/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="css/home.css" />
+  <script src="js/home.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="logo">
+        <img src="img/header.png" alt="QuickPick" />
+      </div>
+      <div class="search">
+        <input type="text" placeholder="Search..." />
+        <button>🔍</button>
+      </div>
+    </div>
+    <nav class="menu">
+      <a href="stage01.html">포도알 잡기 게임</a>
+      <a href="practice_main.html">예매 연습 페이지</a>
+      <a href="#">|</a>
+      <a href="introduce.html"><em>"QuickPick" 사이트 소개</em></a>
+    </nav>
+  </header>
+
+  <main style="display: flex; gap: 40px; padding: 60px 70px; font-size: 18px;">
+    <div style="flex: 3;">
+      <section class="main-game">
+        <div class="emoji">🍇</div>
+        <h2>
+          포도알 잡기 게임, <strong>QuickPick</strong>
+        </h2>
+        <p>
+          좌석을 구하려면 빠른 터치/클릭 필수!<br />
+          <strong>당신의 속도를 확인해 보세요!!</strong>
+        </p>
+        <a href="stage01.html" class="start-btn">GAME START</a>
+      </section>
+    </div>
+
+    <aside style="flex: 1.4;">
+      <h3 class="event-title">🎉 Events</h3>
+      <div class="event-list">
+        <div id="eventCard1" class="event-card" onclick="showEvent('eventCard1', 1)">
+          <div class="event-placeholder">🎁</div>
+        </div>
+        <div id="eventCard2" class="event-card" onclick="showEvent('eventCard2', 2)">
+          <div class="event-placeholder">🎁</div>
+        </div>
+      </div>
+      <a href="practice_main.html" class="go-practice-btn">지금 바로 예매 연습 하러 가기!</a>
+      <p class="note">* 마우스를 올려보세요!</p>
+    </aside>
+  </main>
+</body>
+</html>

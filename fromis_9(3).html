@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>fromis_9 /complete</title>
+  <link rel="icon" href="img/favicon.png" type="image/png" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 40px auto;
+      background-color: #fff;
+      border: 1px solid #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(255, 192, 203, 0.3);
+    }
+
+    .left-section {
+      flex: 2;
+      padding: 40px;
+      border-right: 1px solid #eee;
+    }
+
+    .right-section {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .top {
+        text-align: center;
+    }
+
+    h1 {
+      color: #ff6b81;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .notice {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+
+    td {
+      border: 1px solid #ffc1cc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    td {
+      background-color: #fff9fa;
+    }
+
+    .logo {
+      width: 200px;
+      margin-bottom: 5px;
+    }
+
+    .summary-box {
+      width: 100%;
+      background-color: #fff0f5;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 8px rgba(255, 182, 193, 0.3);
+      font-size: 15px;
+    }
+
+    .summary-box h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #ff6b81;
+    }
+
+    .summary-box p {
+      margin: 6px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .home-btn {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background-color: #ffb6c1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .home-btn:hover {
+      background-color: #ff6b81;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-section">
+    <div class="top">
+      <h1>결제가 완료되었습니다</h1>
+      <p class="notice">예매 연습 인증은 이 페이지를 캡쳐해서 보여주세요!</p>
+    </div>
+
+      <table>
+        <tr><td>예매 번호</td><td>20090318</td></tr>
+        <tr><td>공연</td><td>2025 fromis_9 WORLD TOUR [NOW TOMORROW.] IN SEOUL</td></tr>
+        <tr><td>날짜</td><td>2025년 08월 09일 (토)</td></tr>
+        <tr><td>시간</td><td>18시 00분</td></tr>
+        <tr><td>좌석</td><td id="seatName">-</td></tr>
+        <tr><td>티켓 금액</td><td id="seatPrice">-</td></tr>
+        <tr><td>배송비</td><td>2,500원</td></tr>
+        <tr><td><strong>총 결제금액</strong></td><td id="totalAmount"><strong>-</strong></td></tr>
+      </table>
+    </div>
+
+    <div class="right-section">
+      <img src="img/header.png" alt="헤더 이미지" class="logo">
+
+      <div class="summary-box">
+        <h3>🎫 결제 금액</h3>
+        <p><span>공연</span><span>2025 fromis_9 WORLD TOUR<br> [NOW TOMORROW.] IN SEOUL</span></p>
+        <p><span>좌석</span><span id="seatSmall">-</span></p>
+        <p><span>티켓</span><span id="priceSmall">-</span></p>
+        <p><span>배송비</span><span>2,500원</span></p>
+        <p><strong>총액</strong><strong id="totalSmall">-</strong></p>
+      </div>
+
+      <button class="home-btn" onclick="location.href='practice_main.html'">HOME으로 돌아가기</button>
+    </div>
+  </div>
+
+  <script>
+    const seat = localStorage.getItem("selectedSeat") || "-";
+    const price = parseInt(localStorage.getItem("selectedPrice") || "0", 10);
+    const total = price + 2500;
+
+    document.getElementById("seatName").innerText = seat;
+    document.getElementById("seatPrice").innerText = price.toLocaleString() + "원";
+    document.getElementById("totalAmount").innerText = total.toLocaleString() + "원";
+
+    document.getElementById("seatSmall").innerText = seat;
+    document.getElementById("priceSmall").innerText = price.toLocaleString() + "원";
+    document.getElementById("totalSmall").innerText = total.toLocaleString() + "원";
+  </script>
+</body>
+</html>
