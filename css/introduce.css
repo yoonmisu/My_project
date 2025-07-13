@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #ffffff;
+    color: #333;
+  }
+  
+  header {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 150px;
+    gap: 20px;
+  }
+  
+  .logo img {
+    width: 200px;
+    height: 65px;
+  }
+  
+  .search {
+    position: relative;
+    width: 300px;
+  }
+  
+  .search input {
+    width: 100%;
+    padding: 10px 40px 10px 16px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+  }
+  
+  .search button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .search input:focus {
+    outline: none;
+    border-color: #ff6f61;
+    box-shadow: 0 0 0 2px rgba(255, 111, 97, 0.3);
+  }
+  
+  .menu {
+    display: flex;
+    justify-content: center;
+    gap: 130px;
+    padding: 12px 0;
+    border-top: 1px solid #ddd;
+  }
+  
+  .menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .menu a:hover {
+    color: #ff6f61;
+  }
+  
+  .flex-section {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 50px 70px;
+    border-bottom: 1px solid #ffeaf5;
+  }
+  
+  .text-block {
+    flex: 1.5;
+  }
+  
+  .img-block {
+    flex: 2;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .img-block img {
+    width: 200px;
+    border-radius: 20px;
+  }
+  
+  section h2 {
+    font-size: 28px;
+    color: #ff6b81;
+    margin-bottom: 10px;
+  }
+  
+  section p,
+  section ul {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .highlight {
+    font-weight: bold;
+    color: #d94a76;
+  }
+  
+  .home-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background-color: #ff6b81;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(255, 107, 129, 0.4);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+  }
+  
+  .home-btn:hover {
+    background-color: #ff3b61;
+    transform: translateY(-2px);
+  }
+  
+  footer {
+    text-align: center;
+    padding: 40px;
+    background-color: #ffffff;
+    color: #777;
+  }
+  
