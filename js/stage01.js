@@ -72,33 +72,27 @@ cells.forEach(cell => {
   });
 });
 
-function updateTop3Graph() {
-  const records = JSON.parse(localStorage.getItem("records")) || [];
+function updateTop3GraphStage1() {
+      const records = JSON.parse(localStorage.getItem("stage1_records")) || [];
+      document.getElementById("firstTime").textContent = records[0]?.toFixed(2) + "s" || "-";
+      document.getElementById("secondTime").textContent = records[1]?.toFixed(2) + "s" || "-";
+      document.getElementById("thirdTime").textContent = records[2]?.toFixed(2) + "s" || "-";
+    }
 
-  document.getElementById("firstTime").textContent =
-    records[0] !== undefined ? `${records[0].toFixed(2)}s` : "-";
-  document.getElementById("secondTime").textContent =
-    records[1] !== undefined ? `${records[1].toFixed(2)}s` : "-";
-  document.getElementById("thirdTime").textContent =
-    records[2] !== undefined ? `${records[2].toFixed(2)}s` : "-";
-}
-window.addEventListener("DOMContentLoaded", updateTop3Graph);
+    function saveRecordStage1(time) {
+      const record = parseFloat(time);
+      let records = JSON.parse(localStorage.getItem("stage1_records")) || [];
+      records.push(record);
+      records.sort((a, b) => a - b);
+      records = records.slice(0, 10);
+      localStorage.setItem("stage1_records", JSON.stringify(records));
+      updateTop3GraphStage1();
+    }
 
-function saveRecord(time) {
-  const record = parseFloat(time);
-  let records = JSON.parse(localStorage.getItem("records")) || [];
+    window.addEventListener("DOMContentLoaded", updateTop3GraphStage1);
 
-  records.push(record);             
-  records.sort((a, b) => a - b);         
-  records = records.slice(0, 10);            
-
-  localStorage.setItem("records", JSON.stringify(records));
-  updateTop3Graph();                
-}
-
-cells.forEach(cell => {
-  cell.classList.remove("active", "pressed");
-  cell.style.pointerEvents = "auto";
-  cell.style.backgroundColor = "#fff";
-});
-
+    cells.forEach(cell => {
+        cell.classList.remove("active", "pressed"); 
+        cell.style.pointerEvents = "auto";
+        cell.style.backgroundColor = "#fff";
+      });
