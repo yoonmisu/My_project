@@ -170,4 +170,9 @@
     color: #999;
     margin-top: 8px;
   }
-  
+   footer {
+    text-align: center;
+    padding: 40px;
+    background-color: #ffffff;
+    color: #777;
+  }
